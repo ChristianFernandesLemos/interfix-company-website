@@ -1,32 +1,79 @@
 @charset "UTF-8";
 
-:root{
-    --cor0: #c5ebd6;
-    --cor1: #83e1ad;
-    --cor2: #3ddc84;
-    --cor3: #2fa866;
-    --cor4: #1a5c37;
-    --cor5: #063d1e;
+:root {
+    --cor-primaria:       #1A6BF5;   /*  botões, links, destaques */
+    --cor-primaria-hover: #1456CC;   /*  hover */
+    --cor-primaria-light: #E8F0FE;   /*  fundos de seção leve */
+
+    --cor-dark:           #0D1B3E;   /* Texto principal, header escuro */
+    --cor-dark-medio:     #1E3A6E;   /* Header alternativo, footers */
+
+    --cor-bg:             #F7F9FC;   /* Fundo geral da página */
+    --cor-bg-section:     #FFFFFF;   /* Fundo de seções alternadas */
+    --cor-cinza-claro:    #EDF2F7;   /* Bordas, separadores, cards */
+    --cor-texto:          #2D3748;   /* Texto corrido */
+    --cor-texto-suave:    #718096;   /* Subtítulos, labels, textos secundários */
+
+    --cor-acento:         #00B4D8;   /* Acento moderno e tech */
+    --cor-acento-dark:    #0088A9;   /* Hover do acento */
+
+    --cor-sucesso:        #38A169;   /* Mensagens de ok, checkmarks */
+
+    /* =============================================
+       TIPOGRAFIA
+       ============================================= */
+    --fonte-titulo:   'Segoe UI', 'Inter', sans-serif;
+    --fonte-corpo:    'Segoe UI', 'Roboto', sans-serif;
+
+    /* =============================================
+       ESPAÇAMENTOS E BORDAS
+       ============================================= */
+    --radius:         8px;
+    --radius-lg:      16px;
+    --sombra-card:    0 2px 12px rgba(0, 0, 0, 0.08);
+    --sombra-header:  0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+*{
+    box-sizing:border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    background-color: var(--cor-bg);
+    color: var(--cor-texto);
+    font-family: var(--fonte-corpo);
+    font-size: 16px;
+    line-height:1.6;
 }
 
 header{
-    background-color: lightgray;
+    background-color: var(--cor-dark);
+    color: #FFFFFF;
+    padding: 16px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: var(--sombra-header);
 }
 
 header>p{
-    text-align: center;
+    color: var(--cor-acento);
+    font-size: 0.95rem;
+    font-style: italic;
+    letter-spacing: 0.03em;
 }
 
 #logotipo{
     display: block;
-    height: 100px;
-    width: 300px;
-    background-color: lightblue;
-    margin: auto;
+    height: 60px;
+    width: 200px;
 }
 
 #logotipo>img{
-    height: 100px;
-    width: 300px;
+    height: 60px;
+    width: 200px;
+    object-fit: contain;
 }
 
