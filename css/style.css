@@ -177,9 +177,25 @@ section p {
     border-radius: 10px;
     width: 100%;
     display: block;
-    box-shadow: rgba(255, 255, 255, 0.645) 5px 5px 5px;
 }
 
+#sobre{
+    text-align: center;
+    padding: 60px 8%;
+    max-width: 100%;
+    min-height: 550;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+#sobre-conteudo{
+    max-width: 540px;
+}
+#sobre-img img{
+    border-radius: 10px;
+    width: 100%;
+    display: block;
+}
 
 
 #servicos {
@@ -192,7 +208,14 @@ section p {
     margin-bottom: 40px;
 }
 
-#servicos > div {
+#servicos-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2px;
+    row-gap: 20px;
+}
+
+#servicos-container > div {
     background-color: #FFFFFF;
     border: 1px solid var(--cor-cinza-claro);
     border-radius: var(--radius-lg);
@@ -201,12 +224,21 @@ section p {
     transition: transform 0.2s, box-shadow 0.2s;
     max-width: 480px;
     margin: 0 auto 24px;
+    text-align: center;
 }
 
-#servicos > div:hover {
+#servicos-container > div:hover {
     transform: translateY(-4px);
     box-shadow: 0 8px 24px rgba(26, 107, 245, 0.12);
+    background-color: var(--cor-primaria);
 }
+#servicos-container > div:hover > p{
+    color:white;
+}
+#servicos-container > div:hover > h3{
+    color:white;
+}
+
 
 #servicos h3 {
     color: var(--cor-primaria);
