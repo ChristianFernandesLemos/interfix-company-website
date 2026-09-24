@@ -54,6 +54,9 @@ header {
     align-items: center;
     justify-content: space-between;
     box-shadow: var(--sombra-header);
+    position: sticky;
+    top:0;
+    z-index: 1000;
 }
 
 header > p {
@@ -76,7 +79,6 @@ header > p {
 }
 
 nav {
-    background-color: var(--cor-dark-medio);
     display: flex;
     gap: 8px;
     padding: 0 40px;
@@ -124,9 +126,14 @@ section p {
 
 #home {
     text-align: center;
-    padding: 100px 40px;
+    padding: 60px 8%;
     background: linear-gradient(135deg, var(--cor-dark) 0%, var(--cor-dark-medio) 100%);
     max-width: 100%;
+    min-height: 550;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
 }
 
 #home h1 {
@@ -145,7 +152,7 @@ section p {
     margin-bottom: 36px;
 }
 
-#home > a {
+#home-conteudo > a {
     display: inline-block;
     background-color: var(--cor-primaria);
     color: #FFFFFF;
@@ -157,10 +164,23 @@ section p {
     transition: background-color 0.2s, transform 0.1s;
 }
 
-#home > a:hover {
+#home-conteudo > a:hover {
     background-color: var(--cor-primaria-hover);
     transform: translateY(-2px);
 }
+
+#home-conteudo {
+    max-width: 540px;
+}
+
+#home-img img{
+    border-radius: 10px;
+    width: 100%;
+    display: block;
+    box-shadow: rgba(255, 255, 255, 0.645) 5px 5px 5px;
+}
+
+
 
 #servicos {
     background-color: var(--cor-primaria-light);
