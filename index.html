@@ -11,12 +11,21 @@
 <body>
     <header>
         <div id="logotipo"><img src="assets/img/logotipo-transparente.png" alt="logotipo InterFix"></div>
-        <nav>
-            <a href="#home">Home</a>
-            <a href="#sobre">Sobre</a>
-            <a href="#servicos">Serviço</a>
-            <a href="#contato">Contato</a>
-        </nav>
+        
+        <button class="menu-toggle" id="menu-toggle" type="button"
+            aria-label="Abrir menu" aria-expanded="false" aria-controls="menu-principal">
+        <span class="menu-toggle-barra"></span>
+        <span class="menu-toggle-barra"></span>
+        <span class="menu-toggle-barra"></span>
+    </button>
+ 
+    <!-- [ALTERADO] Adicionado id="menu-principal" -->
+    <nav id="menu-principal">
+        <a href="#home">Home</a>
+        <a href="#sobre">Sobre</a>
+        <a href="#servicos">Serviço</a>
+        <a href="#contato">Contato</a>
+    </nav>
     </header>
     <main>
         <section id="home">

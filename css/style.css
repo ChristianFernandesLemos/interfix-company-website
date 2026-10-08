@@ -1,3 +1,26 @@
+/* =====================================================================
+   style.responsivo.css  —  INTERFIX
+   ---------------------------------------------------------------------
+   Cópia do style.css original com responsividade adicionada.
+   O arquivo original NÃO foi modificado.
+
+   COMO LER ESTE ARQUIVO
+   - Trechos marcados com [RESPONSIVO] foram adicionados ou alterados.
+   - Trechos sem marcação são idênticos ao original.
+   - O CSS original é "desktop-first" (foi escrito pensando em telas
+     grandes). Por isso mantive essa lógica: os estilos base valem para
+     desktop e as media queries (max-width) no FIM do arquivo adaptam
+     para telas menores. Isso evita reescrever tudo e reduz o risco de
+     quebrar o visual atual do desktop.
+
+   BREAKPOINTS USADOS
+   - >= 1280px : telas grandes (limita a largura do conteúdo)
+   - <= 1024px : tablet na horizontal / notebooks pequenos
+   - <=  900px : tablet na vertical (seções Home/Sobre empilham)
+   - <=  768px : celulares e tablets pequenos (navbar vira botão)
+   - <=  480px : celulares pequenos
+   ===================================================================== */
+
 :root {
     --cor-primaria:       #1A6BF5;   /*  botões, links, destaques */
     --cor-primaria-hover: #1456CC;   /*  hover */
@@ -36,6 +59,38 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+}
+
+/* [RESPONSIVO] ---------------------------------------------------------
+   Ajustes globais que beneficiam todos os dispositivos.
+   --------------------------------------------------------------------- */
+html {
+    /* Impede que o iOS/Android aumentem o texto sozinhos ao girar a tela */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+
+    /* Rolagem suave ao clicar nos links do menu (#home, #sobre, ...) */
+    scroll-behavior: smooth;
+
+    /* O header é "sticky" e cobre o topo da página. Sem isso, o título
+       de cada seção ficaria escondido atrás do header após o clique no
+       menu. 90px ≈ altura do header. */
+    scroll-padding-top: 90px;
+}
+
+/* [RESPONSIVO] Imagens nunca ultrapassam a largura do contêiner.
+   (Imagens com tamanho definido por ID, como o logotipo, continuam
+   respeitando suas próprias regras, pois têm maior especificidade.) */
+img {
+    max-width: 100%;
+}
+
+/* [RESPONSIVO] Foco visível para quem navega por teclado.
+   Importante também para acessibilidade no menu mobile. */
+a:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--cor-acento);
+    outline-offset: 2px;
 }
 
 body {
@@ -99,6 +154,48 @@ nav a:hover {
     border-bottom: 3px solid var(--cor-acento);
 }
 
+/* [RESPONSIVO] ---------------------------------------------------------
+   BOTÃO DO MENU (hambúrguer)
+   Escondido no desktop. Só aparece na media query de 768px, mais abaixo.
+   Requer o HTML do botão (veja menu-responsivo.html) e o JS
+   (veja script.responsivo.js).
+   --------------------------------------------------------------------- */
+.menu-toggle {
+    display: none;                 /* oculto no desktop */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 44px;                   /* 44px = tamanho mínimo recomendado p/ toque */
+    height: 44px;
+    background: transparent;
+    border: 0;
+    border-radius: var(--radius);
+    cursor: pointer;
+}
+
+/* As 3 barrinhas do ícone */
+.menu-toggle-barra {
+    display: block;
+    width: 26px;
+    height: 3px;
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Quando o menu está aberto, o ícone vira um "X".
+   O deslocamento de 9px = altura da barra (3px) + espaço entre barras (6px). */
+.menu-toggle[aria-expanded="true"] .menu-toggle-barra:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+}
+.menu-toggle[aria-expanded="true"] .menu-toggle-barra:nth-child(2) {
+    opacity: 0;
+}
+.menu-toggle[aria-expanded="true"] .menu-toggle-barra:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+}
+
 section {
     padding: 72px 40px;
     max-width: 1100px;
@@ -111,7 +208,10 @@ section:nth-child(even) {
 
 section h2 {
     font-family: var(--fonte-titulo);
-    font-size: 2rem;
+    /* [RESPONSIVO] Era "2rem" fixo. Agora o título é fluido:
+       mínimo 1.5rem, máximo 2rem. No desktop continua exatamente 2rem;
+       só diminui suavemente em telas estreitas (abaixo de ~800px). */
+    font-size: clamp(1.5rem, 3vw + 0.5rem, 2rem);
     color: var(--cor-dark);
     margin-bottom: 16px;
     text-align: center;
@@ -129,7 +229,10 @@ section p {
     padding: 60px 8%;
     background: linear-gradient(135deg, var(--cor-dark) 0%, var(--cor-dark-medio) 100%);
     max-width: 100%;
-    min-height: 550;
+    /* [RESPONSIVO] CORREÇÃO: estava "min-height: 550" (sem unidade), o que
+       é inválido em CSS e era ignorado pelo navegador. Adicionei "px".
+       Obs.: isso passa a valer de fato no desktop (altura mínima de 550px). */
+    min-height: 550px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -138,7 +241,9 @@ section p {
 
 #home h1 {
     font-family: var(--fonte-titulo);
-    font-size: 2.6rem;
+    /* [RESPONSIVO] Era "2.6rem" fixo. Agora fluido (mín. 1.75rem, máx. 2.6rem).
+       No desktop continua 2.6rem; reduz sozinho em telas menores. */
+    font-size: clamp(1.75rem, 4vw + 0.5rem, 2.6rem);
     font-weight: 700;
     color: #FFFFFF;
     max-width: 760px;
@@ -183,7 +288,8 @@ section p {
     text-align: center;
     padding: 60px 8%;
     max-width: 100%;
-    min-height: 550;
+    /* [RESPONSIVO] CORREÇÃO: mesma situação do #home (faltava a unidade "px"). */
+    min-height: 550px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -314,4 +420,303 @@ footer {
 
 footer p {
     color: #718096;
+}
+
+
+/* =====================================================================
+   [RESPONSIVO] MEDIA QUERIES
+   ---------------------------------------------------------------------
+   IMPORTANTE: devem ficar no FIM do arquivo. Como têm a mesma
+   especificidade das regras acima, a ordem decide quem vence: o que
+   vem depois sobrescreve o que vem antes.
+   Também ficam em ordem DECRESCENTE de largura, para que as telas
+   menores herdem e refinem os ajustes das telas maiores.
+   ===================================================================== */
+
+
+/* ---------------------------------------------------------------------
+   TELAS GRANDES (a partir de 1280px)
+   Em monitores largos, Home e Sobre ocupavam 100% da largura e o
+   conteúdo ficava muito espalhado. Aqui o conteúdo é limitado a 1200px
+   e centralizado, mantendo o fundo em largura total.
+   --------------------------------------------------------------------- */
+@media (min-width: 1280px) {
+    #home,
+    #sobre {
+        padding-left:  max(8%, calc((100% - 1200px) / 2));
+        padding-right: max(8%, calc((100% - 1200px) / 2));
+    }
+}
+
+
+/* ---------------------------------------------------------------------
+   TABLET NA HORIZONTAL / NOTEBOOKS PEQUENOS (até 1024px)
+   Reduz espaçamentos para dar mais área útil ao conteúdo.
+   --------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    header {
+        padding: 14px 24px;
+    }
+
+    /* Menu horizontal continua, mas mais compacto */
+    nav {
+        padding: 0;
+        gap: 4px;
+    }
+
+    nav a {
+        padding: 12px 12px;
+    }
+
+    section {
+        padding: 56px 32px;
+    }
+
+    /* Aqui precisamos repetir o #servicos porque, por ser um seletor de ID,
+       ele vence o seletor "section" acima. */
+    #servicos {
+        padding: 56px 32px;
+    }
+
+    #home,
+    #sobre {
+        padding: 48px 5%;
+        gap: 32px;              /* evita texto colado na imagem */
+    }
+
+    #servicos-container {
+        column-gap: 16px;       /* antes eram 2px: cards quase colados */
+    }
+}
+
+
+/* ---------------------------------------------------------------------
+   TABLET NA VERTICAL (até 900px)
+   Texto e imagem lado a lado ficam apertados demais. Passam a ficar
+   um embaixo do outro.
+   --------------------------------------------------------------------- */
+@media (max-width: 900px) {
+    #home,
+    #sobre {
+        flex-direction: column;  /* de linha (lado a lado) para coluna */
+        min-height: auto;        /* altura passa a depender do conteúdo */
+        padding: 48px 6%;
+        gap: 32px;
+    }
+
+    #home-conteudo,
+    #sobre-conteudo {
+        max-width: 640px;        /* limite de leitura confortável */
+        width: 100%;
+    }
+
+    #home-img,
+    #sobre-img {
+        width: 100%;
+        max-width: 640px;
+    }
+}
+
+
+/* ---------------------------------------------------------------------
+   CELULARES E TABLETS PEQUENOS (até 768px)
+   Aqui a navbar vira um botão (menu hambúrguer) e os serviços passam
+   para uma coluna.
+   --------------------------------------------------------------------- */
+@media (max-width: 768px) {
+
+    /* ---------- HEADER + MENU HAMBÚRGUER ---------- */
+    header {
+        padding: 12px 20px;
+    }
+
+    /* Logotipo menor, mantendo a proporção 10:3 (200x60 → 160x48) */
+    #logotipo,
+    #logotipo > img {
+        width: 160px;
+        height: 48px;
+    }
+
+    /* Mostra o botão hambúrguer */
+    .menu-toggle {
+        display: flex;
+    }
+
+    /* A <nav> vira um painel que desce logo abaixo do header.
+       - position: absolute  -> o header é "sticky" e serve de referência.
+       - top: 100%           -> começa exatamente onde o header termina.
+       - max-height: 0 + overflow: hidden -> fica fechado (altura zero).
+       - visibility: hidden  -> impede foco por teclado em links invisíveis. */
+    nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        flex-direction: column;
+        gap: 0;
+        padding: 0;
+        background-color: var(--cor-dark);
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: var(--sombra-header);
+        max-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        /* O "visibility" só some DEPOIS da animação de fechar (delay de .3s) */
+        transition: max-height 0.3s ease, visibility 0s linear 0.3s;
+    }
+
+    /* Menu aberto (a classe "aberto" é adicionada pelo JavaScript) */
+    nav.aberto {
+        max-height: 400px;       /* maior que a altura real dos 4 links */
+        visibility: visible;
+        transition: max-height 0.3s ease, visibility 0s;
+    }
+
+    /* Links em tela cheia, com área de toque grande (≥ 44px de altura) */
+    nav a {
+        display: block;
+        padding: 16px 24px;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 4px solid transparent;   /* barra de destaque lateral */
+    }
+
+    /* No mobile o destaque do hover/foco é uma barra lateral
+       (a barra inferior de 3px do desktop ficaria estranha em lista). */
+    nav a:hover,
+    nav a:focus-visible {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-left-color: var(--cor-acento);
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* ---------- SEÇÕES ---------- */
+    section {
+        padding: 48px 20px;
+    }
+
+    #servicos {
+        padding: 48px 20px;
+    }
+
+    #servicos h2 {
+        margin-bottom: 28px;
+    }
+
+    /* Serviços: 2 colunas → 1 coluna */
+    #servicos-container {
+        grid-template-columns: 1fr;
+        row-gap: 16px;
+    }
+
+    #servicos-container > div {
+        width: 100%;             /* card ocupa toda a largura da coluna */
+        max-width: none;
+        margin: 0;               /* remove a margem inferior de 24px do desktop */
+    }
+
+    /* ---------- FORMULÁRIO ---------- */
+    /* Campos com 16px ou mais: abaixo disso o Safari/iOS dá zoom automático
+       na página ao tocar no campo (comportamento irritante). */
+    #contato input,
+    #contato textarea {
+        font-size: 1rem;
+    }
+
+    #contato button {
+        min-height: 48px;        /* botão fácil de tocar com o polegar */
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        padding: 24px 20px;
+        font-size: 0.95rem;
+    }
+
+    footer p {
+        overflow-wrap: anywhere; /* e-mails longos quebram em vez de vazar da tela */
+    }
+}
+
+
+/* ---------------------------------------------------------------------
+   CELULARES PEQUENOS (até 480px)
+   Refinamentos finais para telas bem estreitas (ex.: 360px).
+   --------------------------------------------------------------------- */
+@media (max-width: 480px) {
+    #logotipo,
+    #logotipo > img {
+        width: 130px;
+        height: 39px;
+    }
+
+    section,
+    #servicos {
+        padding: 40px 16px;
+    }
+
+    #home,
+    #sobre {
+        padding: 36px 5%;
+        gap: 24px;
+    }
+
+    /* Botão "Solicitar orçamento" em largura total: mais fácil de tocar */
+    #home-conteudo > a {
+        display: block;
+        width: 100%;
+        text-align: center;
+    }
+
+    #servicos-container > div {
+        padding: 24px 20px;
+    }
+}
+
+
+/* ---------------------------------------------------------------------
+   DISPOSITIVOS DE TOQUE (celulares e tablets, sem mouse)
+   Em telas de toque, o :hover "gruda" depois do toque e deixa o card de
+   serviço azul até o usuário tocar em outro lugar. Aqui o efeito de
+   hover é desativado nesses aparelhos. No desktop com mouse nada muda.
+   --------------------------------------------------------------------- */
+@media (hover: none) {
+    #servicos-container > div:hover {
+        transform: none;
+        box-shadow: var(--sombra-card);
+        background-color: #FFFFFF;
+    }
+
+    #servicos-container > div:hover > p {
+        color: var(--cor-texto-suave);
+    }
+
+    #servicos-container > div:hover > h3 {
+        color: var(--cor-primaria);
+    }
+
+    #home-conteudo > a:hover {
+        transform: none;
+        background-color: var(--cor-primaria);
+    }
+}
+
+
+/* ---------------------------------------------------------------------
+   ACESSIBILIDADE: MOVIMENTO REDUZIDO
+   Respeita quem ativou "reduzir movimento" no sistema operacional
+   (importante para pessoas sensíveis a animações). Desliga a rolagem
+   suave e encurta as transições.
+   --------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
 }
