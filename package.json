@@ -1,0 +1,23 @@
+{
+  "name": "interfix-company-website",
+  "version": "1.0.0",
+  "description": "Website da InterFix",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChristianFernandesLemos/interfix-company-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChristianFernandesLemos/interfix-company-website/issues"
+  },
+  "homepage": "https://github.com/ChristianFernandesLemos/interfix-company-website#readme",
+  "dependencies": {
+    "express": "^5.3.0"
+  }
+}
