@@ -1,18 +1,30 @@
 {
   "name": "interfix-company-website",
   "version": "1.0.0",
-  "description": "Website da InterFix",
-  "main": "index.js",
+  "description": "Site institucional da InterFix: suporte técnico e gestão de chamados, com formulário de contato integrado a uma API Node.js/Express.",
+  "private": true,
+  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "engines": {
+    "node":">=20"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ChristianFernandesLemos/interfix-company-website.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "interfix",
+    "suporte-tecnico",
+    "gestao-de-chamados",
+    "express",
+    "nodejs"
+  ],
+  "author": "Christian Fernandes",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/ChristianFernandesLemos/interfix-company-website/issues"
   },
