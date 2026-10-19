@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //Permite que o servidor receba dados em JSON
 app.use(express.json());

@@ -7,10 +7,10 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "dev": "node --watch server.js"
+    "dev": "node --watch --env-file=.env server.js"
   },
   "engines": {
-    "node":">=20"
+    "node":">=20.6"
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,7 @@
     "express",
     "nodejs"
   ],
-  "author": "Christian Fernandes",
+  "author": "Christian Fernandes Lemos",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/ChristianFernandesLemos/interfix-company-website/issues"
